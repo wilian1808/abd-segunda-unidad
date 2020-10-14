@@ -73,12 +73,12 @@ SELECT * FROM Estudiantes;
 |      4      |   oscar   |  0   | desaprobado |
 |      5      |   pedro   |  0   | desaprobado |
 
-**Resultado despues de realizar el cambio de nota y que nuestro *trigger* haya realizado su trabajo.
+**Resultado** despues de realizar el cambio de nota y que nuestro *trigger* haya realizado su trabajo.
 
 |IdEstudiante | Username  | Nota |    Estado   |
 | ----------- | --------- | ---- | ----------- | 
 |      1      |   mario   |  0   | desaprobado |
-|      2      |   juan	  |  16  | desaprobado |
+|      2      |   juan	  |  16  | aprobado    |
 |      3      |   pepe	  |  0   | desaprobado |
-|      4      |   oscar   |  12  | desaprobado |
+|      4      |   oscar   |  12  | aprobado    |
 |      5      |   pedro   |  0   | desaprobado |
