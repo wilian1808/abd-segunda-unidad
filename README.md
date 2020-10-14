@@ -1,7 +1,7 @@
-## PREGUNTAS SEGUNDA UNIDAD
+# PREGUNTAS SEGUNDA UNIDAD
 
 
-#### PRIMERA ACTIVIDAD
+## PRIMERA ACTIVIDAD
 Implementar un procedimiento almacenado que inserte un pedido en base de datos *Northwind*
 
 - Esta actividad esta desarrollada en **Mysql**.
@@ -11,7 +11,9 @@ USE northwind;
 
 ```
 
-#### SEGUNDA ACTIVIDAD
+---
+
+## SEGUNDA ACTIVIDAD
 Implementar una transacción en la base de datos *AdventureWorks* y explque.
 
 - Esta actividad esta desarrollada en **SQLServer**.
@@ -54,7 +56,7 @@ BEGIN TRAN ANPB
 GO
 ```
 
-> Procederemos a usar el procedimiento que contiene la transacción, y tambien  realziamos una consulta para ver que se creo en negocio y la persona.
+> Procederemos a usar el procedimiento que contiene la transacción, y tambien realizamos una consulta para ver que se creo en negocio y la persona.
 
 ```sql
 EXEC AddNewPersonBusiness 'EM', 'Mario', 'Juan', 'Pedro'
@@ -84,8 +86,9 @@ SELECT TOP 1
 | ---------------- | ---------------- |
 |      20784       | Mario Juan Pedro |
 
+---
 
-#### TERCERA ACTIVIDAD
+## TERCERA ACTIVIDAD
 Implemente un trigger en la base de datos de su preferencia y explique.
 
 - Esta actividad esta desarrollada en **SQlServer**.
