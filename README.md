@@ -9,7 +9,102 @@ Implementar un procedimiento almacenado que inserte un pedido en base de datos *
 ```sql
 USE northwind;
 
+CREATE OR REPLACE PROCEDURE create_new_order(
+    IN customer_id VARCHAR (5),
+    IN employee_id INT (11),
+    IN ship_via INT (11),
+    IN freightt DECIMAL(19,4),
+    IN product_id INT (11),
+    IN quantityy INT (11)
+)
+BEGIN
+    SELECT 
+        @ship_name := CompanyName, 
+        @ship_address := Address, 
+        @ship_city := City, 
+        @ship_postal_code := PostalCode,
+        @ship_country := Country 
+    FROM customers WHERE CustomerID = customer_id;
+                                              |
+    INSERT INTO orders (
+        CustomerID, 
+        EmployeeID, 
+        OrderDate, 
+        RequiredDate, 
+        ShippedDate, 
+        ShipVia, 
+        Freight, 
+        ShipName, 
+        ShipAddress, 
+        ShipCity, 
+        ShipPostalCode, 
+        ShipCountry
+    ) VALUES (
+        customer_id,
+        employee_id,
+        CURRENT_TIME,
+        CURRENT_TIME,
+        CURRENT_TIME,
+        ship_via,
+        freightt,
+        @ship_name,
+        @ship_address,
+        @ship_city,
+        @ship_postal_code,
+        @ship_country
+    );
+
+    SELECT @order_id := OrderID FROM orders ORDER BY OrderID DESC LIMIT 1;
+    SELECT @unit_price := UnitPrice FROM products WHERE ProductID = product_id;
+
+    INSERT INTO order_details (
+        OrderID,
+        ProductID,
+        UnitPrice,
+        Quantity
+    ) VALUES (
+        @order_id,
+        product_id,
+        @unit_price,
+        quantityy
+    );
+END
 ```
+
+> Para comprobar que funciona insertamos un nuevo pedido usando nuestro procedimiento almacenado al cual devemos pasar como parametro los siguientes datos: *id del cliente*, *id del envio*, *el número de carga*, *el id del producto* y la *cantidad del producto*.
+
+> Despues procedemos realizar las consultas para comprobar que si se creo el nuevo pedido y tambien se crearon los detalles del pedido.
+
+```sql
+CALL create_new_order("ALFKI", 5, 2, 20.2222, 44, 22);
+
+SELECT 
+	OrderID, 
+	CustomerID, 
+	EmployeeID, 
+	OrderDate, 
+	ShipVia, 
+	Freight, 
+	ShipName, 
+	ShipAddress, 
+	ShipCity, 
+	ShipPostalCode 
+FROM orders ORDER BY OrderID DESC LIMIT 1;
+
+SELECT * FROM order_details ORDER BY OrderID DESC LIMIT 1;
+```
+
+**Resutaldo** de la consulta a la tabla de los pedidos *orders*.
+
+| OrderID | CustomerID | EmployeeID | OrderDate           | ShipVia | Freight | ShipName            | ShipAddress   | ShipCity | ShipPostalCode |
+| ------- | ---------- | ---------- | ------------------- | ------- | ------- | ------------------- | ------------- | -------- | -------------- |
+|   11080 | ALFKI      |          5 | 2020-10-15 20:57:48 |       2 | 20.2222 | Alfreds Futterkiste | Obere Str. 57 | Berlin   | 12209          |
+
+**Resultado**
+
+| OrderID | ProductID | UnitPrice | Quantity | Discount |
+| ------- | --------- | --------- | -------- | -------- |
+|   11080 |        44 |   19.4500 |       22 |        0 |
 
 ---
 
