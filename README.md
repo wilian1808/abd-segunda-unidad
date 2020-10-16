@@ -6,6 +6,12 @@ Implementar un procedimiento almacenado que inserte un pedido en base de datos *
 
 - Esta actividad esta desarrollada en **Mysql**.
 
+> Nuestro procedimieno almacenado debera crear un nuevo pedido para ello creamos un procedimiento almacenado que nos ayudara con la creación, este procedimiento recibira los siguientes parametros. *customer_id*, *employee_id*, *ship_via*, *freightt*, *product_id*, *quantityy*, los cuales declaramos con sus respectivos tipos de datos.
+
+> Luego procedemos a crear el cuerpo del procedimiento almacenado, dentro de begin se realizaran 5 procesos que son necesarios para la creación de un nuevo pedido, el primero es una consulta la cual nos ayudara a traer los datos extras que necesitamos para la creación de nuestro pedido de a cuerdo al parametro *customer_id* y los guardamos en variables para usarlos luego, el segundo procede a crear el pedido en la tabla *orders* para lo cual usamos *INSERT* y le pasamos todos los datos necesarios para la creacion de un nuevo pedido, una ves creado el pedido en la tabla *orders* tenemos que crear los detalles del pedido en la tabla *order_details*.
+
+> La tercera consulta obtiene el *OrderID* del pedido insertado en la tabla *orders* y lo guarda en una variable, la cuarta consulta obtiene el precio por unidad del productor de la tabla *products* mediante el *ProductID* y tambien lo guardamos en una variable, como ultima consulta procedemos a crear o insertar los detalles del pedido en la tabla *order_details* para ello usamos un *INSERT* y le asignamos los valores necesarios para la creación de los detalles del pedido luego de esto procedemos a terminar la creacion del procedimeinto almacenado.
+
 ```sql
 USE northwind;
 
